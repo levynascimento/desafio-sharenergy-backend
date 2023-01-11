@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "RentX Documentation",
-    "description": "This is an API Rent",
+    "title": "Desafio 01 - Módulo 2 - NodeJS",
+    "description": "Está é uma API que realiza um CRUD de clientes, listagem e filtragem de Clientes randômicos, listagem de dogs randômicos, listagem de cats randômicos e autenticação de Cliente por JWT",
     "version": "1.0.0",
     "contact": {
       "email": "levymartinsnascimento@gmail.com"
@@ -12,8 +12,8 @@
     "/clients": {
       "post": {
         "tags": ["Clients"],
-        "summary": "Criar um cliente",
-        "description": "Criar um novo cliente",
+        "summary": "Criar cliente",
+        "description": "Cria um novo cliente",
         "requestBody": {
           "content": {
             "application/json": {
@@ -23,13 +23,25 @@
                   "name": {
                     "type": "string"
                   },
-                  "description": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "cpf": {
                     "type": "string"
                   }
                 },
                 "example": {
-                  "name": "Category name sample",
-                  "description": "Category description sample"
+                  "name": "Levy",
+                  "email": "levymartinsnascimento@gmail.com",
+                  "phone": "132461346",
+                  "address": "wnbsfdgnsfgns",
+                  "cpf": "247245762457"
                 }
               }
             }
@@ -37,20 +49,49 @@
         },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "default"
+                  }
+                },
+                "example": {
+                  "error": "Email já está em uso."
+                }
+              }
+            }
+            
           },
-          "500": {
-            "description": "Category already exists"
+          "400": {
+            "description": "User já existe.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Cliente já existe."
+                  }
+                }
+              }
+            }
           }
         }
       },
       "get": {
-        "tags": ["Category"],
-        "summary": "List all categories",
-        "description": "List all categories",
+        "tags": ["Clients"],
+        "summary": "Lista todos os clientes.",
+        "description": "Lista todos os clientes.",
         "responses": {
-          "200": {
-            "description": "Sucess",
+          "201": {
+            "description": "Sucesso",
             "content": {
               "application/json": {
                 "schema": {
@@ -58,10 +99,25 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "name": {
+                      "_id": {
                         "type": "string"
                       },
-                      "description": {
+                      "name": {
+                        "type":"string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "cpf": {
+                        "type": "string"
+                      },
+                      "created_at": {
                         "type": "string"
                       }
                     }
@@ -69,71 +125,223 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Erro do servidor",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "default"
+                  }
+                },
+                "example": {
+                  "error": "Erro do servidor."
+                }
+              }
+            }
+
           }
         }
       }
     },
-    "/categories/import": {
-      "post": {
-        "tags": ["Category"],
-        "summary": "Upload a new category",
-        "description": "Upload a new category",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
+    "/clients/{id}": {
+      "get": {
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "required": "true",
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "tags": ["Clients"],
+        "summary": "Lista um cliente específico.",
+        "description": "Lista um cliente específico de acordo com o ID na rota",
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type":"string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "cpf": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  } 
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado.",
+            "content": {
+              "application/json": {
                 "type": "object",
                 "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary"
+                  "error": {
+                    "type": "default"
+                  }
+                },
+                "example": {
+                  "error": "Cliente não encontrado."
+                }
+              }
+            }
+
+          }
+        }
+      }
+    },
+    "/clients/{id}": {
+      "patch": {
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "required": "true",
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "tags": ["Clients"],
+        "summary": "Atualizar um cliente.",
+        "description": "Atualizar ou editar um cliente.",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type":"string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "cpf": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  } 
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": "string"
+                  },
+                  "example": {
+                    "error": "Cliente não encontrado."
                   }
                 }
               }
             }
           }
-        },
-        "responses": {
-          "201": {
-            "description": "Created"
-          }
         }
       }
     },
-    "/specifications": {
-      "post": {
-        "tags": ["Specifications"],
-        "summary": "Create a specification",
-        "description": "Create a new specification",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/definitions/Specification"
+    "/clients/{id}": {
+      "delete": {
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "required": "true",
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "tags": ["Clients"],
+        "summary": "Deletar um cliente.",
+        "description": "Deletar um cliente específico.",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type":"string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "cpf": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  } 
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": "string"
+                  },
+                  "example": {
+                    "error": "Cliente não encontrado."
+                  }
+                }
               }
             }
           }
-        },
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Specification already exists!"
-          }
-        }
-      }
-    }
-  },
-  "definitions": {
-    "Specification": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
         }
       }
     }
