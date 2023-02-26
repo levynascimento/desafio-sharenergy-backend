@@ -50,7 +50,7 @@ Este projeto foi um desafio para um vaga backend. Decidi fazer este projeto para
 
 # Funcionalidades
 
-1. Criar, Listar todos, Listar apenas um, Editar e Deletar um cliente.
+1. Criar, Listar todos, Listar apenas um, Editar e Deletar um cliente. Essas rotas respectivamente, criam um cliente, listam todos os clientes, cadastrados no sistema, lista apenas um através do id no route params, edita um cliente através do id no route params e também deleta um cliente através do id no route params.
 
 2. HttpCat é uma rota onde o usuário insere o status code e a requisição envia uma imagem de um gato correspondente ao status. Se não tiver a imagem, ele retorna o status code 404, junto com uma imagem fixa de erro, que é um gato também.
 
