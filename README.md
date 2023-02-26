@@ -5,10 +5,13 @@
 
 Este projeto foi um desafio para um vaga backend. Decidi fazer este projeto para aplicar o que aprendi sobre construção de um sistema backend em ExpressJS. Esse projeto ainda não foi terminado, porém me ensinou bastante sobre conceitos de SOLID e clean code, utilização de docker para conteinerizar o banco de dados e aplicação, autenticação de clientes através do JWT, swagger para documentação da API e comunicação com banco de dados através do TypeORM. Foi uma ótima oportunidade para aprender conectar o TypeORM a um banco não-relacional, como o MongoDB e consumir APIs externas no meu backend, manipular elas e enviar para o frontend. Além disso, esse projeto me ensinou o quanto uma aplicação real precisa de diversos fatores para ser performática, ser de fácil manutenção e escalável.
 
+
 # Conteúdos
 
 - [Arquitetura](#arquitetura) 
 - [Instruções de execução](#instruções-de-execução)
+- [Funcionalidades](#funcionalidades)
+
 
 # Arquitetura 
 
@@ -43,6 +46,20 @@ Este projeto foi um desafio para um vaga backend. Decidi fazer este projeto para
 **JWT**
 
 *Esse é um dos tokens mais utilizados para autenticação de rotas. Neste projeto, utilizei para autenticar as rotas de criação, edição, listagem e deleção de clientes, ou seja, as rotas só funcionariam com o usuário autenticado.*
+
+
+# Funcionalidades
+
+1. Criar, Listar todos, Listar apenas um, Editar e Deletar um cliente.
+
+2. HttpCat é uma rota onde o usuário insere o status code e a requisição envia uma imagem de um gato correspondente ao status. Se não tiver a imagem, ele retorna o status code 404, junto com uma imagem fixa de erro, que é um gato também.
+
+3. Random Dog é uma rota onde cada vez que o usuário atualizar a requisição é mudada a imagem de um cachorro.
+
+4. Random User é uma rota que consome uma API externa com dados de usuários fakes e lista cada um deles. Também é possível filtra o usuário pelo nome, username e email através query params.
+
+5. Rota User serve pra logar o usuário admin no sistema. Esse usuário ao iniciar uma sessão gera um token que é passado para as de mais rotas, tornando essas rotas exclusivas desse usuário.
+
 
 # Instruções de execução
 
