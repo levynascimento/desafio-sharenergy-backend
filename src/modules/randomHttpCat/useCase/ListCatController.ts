@@ -6,7 +6,7 @@ class ListCatController {
     try {
       const { code } = request.params;
 
-      const { data } = await axios(`https://http.cat/${code || 404}`, {
+      const { data } = await axios(`https://http.cat/${code}`, {
         responseType: 'arraybuffer',
       });
 

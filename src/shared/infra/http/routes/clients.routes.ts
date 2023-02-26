@@ -6,6 +6,8 @@ import { ListAllClientsController } from '@modules/client/useCases/listAllUsers/
 import { ListClientByIdController } from '@modules/client/useCases/listUserById/ListClientByIdController';
 import { UpdateClientController } from '@modules/client/useCases/updateUser/UpdateClientController';
 
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
+
 const clientsRoutes = Router();
 
 const createClientController = new CreateClientController();
@@ -18,14 +20,18 @@ const listAllClientsController = new ListAllClientsController();
 
 const deleteClientController = new DeleteClientController();
 
-clientsRoutes.post('/', createClientController.handle);
+clientsRoutes.post('/', ensureAuthenticated, createClientController.handle);
 
-clientsRoutes.patch('/:id', updateClientController.handle);
+clientsRoutes.patch('/:id', ensureAuthenticated, updateClientController.handle);
 
-clientsRoutes.get('/:id', listClientByIdController.handle);
+clientsRoutes.get('/:id', ensureAuthenticated, listClientByIdController.handle);
 
-clientsRoutes.get('/', listAllClientsController.handle);
+clientsRoutes.get('/', ensureAuthenticated, listAllClientsController.handle);
 
-clientsRoutes.delete('/:id', deleteClientController.handle);
+clientsRoutes.delete(
+  '/:id',
+  ensureAuthenticated,
+  deleteClientController.handle,
+);
 
 export { clientsRoutes };
