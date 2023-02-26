@@ -56,7 +56,7 @@ Este projeto foi um desafio para um vaga backend. Decidi fazer este projeto para
 
 3. Random Dog é uma rota onde cada vez que o usuário atualizar a requisição é mudada a imagem de um cachorro.
 
-4. Random User é uma rota que consome uma API externa com dados de usuários fakes e lista cada um deles. Também é possível filtra o usuário pelo nome, username e email através query params.
+4. Random User é uma rota que consome uma API externa com dados de usuários fakes e lista cada um deles. Também é possível filtra o usuário pelo nome, username e email através do query params.
 
 5. Rota User serve pra logar o usuário admin no sistema. Esse usuário ao iniciar uma sessão gera um token que é passado para as de mais rotas, tornando essas rotas exclusivas desse usuário.
 
